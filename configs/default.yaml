@@ -1,0 +1,37 @@
+experiment:
+  name: "neural_style_v1"
+  output_dir: "outputs/"
+  seed: 42
+  tensorboard: true
+
+style_transfer:
+  image_size: 512            # Resize images to this (larger = more detail, slower)
+  iterations: 1000           # Optimization steps
+  learning_rate: 0.02
+  content_weight: 1.0e4      # How much to preserve content structure
+  style_weight: 1.0e-2       # How much to apply artistic style
+  tv_weight: 30.0            # Total variation (smoothness) regularizer
+  save_interval: 100         # Save intermediate result every N iterations
+  use_mixed_precision: false
+
+  # VGG19 layers used for feature extraction
+  content_layers:
+    - block5_conv2
+
+  style_layers:
+    - block1_conv1
+    - block2_conv1
+    - block3_conv1
+    - block4_conv1
+    - block5_conv1
+
+fast_style:
+  image_size: 256
+  epochs: 2
+  batch_size: 4
+  learning_rate: 1.0e-3
+  content_weight: 1.0e5
+  style_weight: 1.0e10
+  tv_weight: 1.0e-6
+  checkpoint_dir: "outputs/fast_checkpoints/"
+  save_every_n_batches: 500
